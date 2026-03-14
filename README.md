@@ -142,3 +142,44 @@ Example forecast comparison for **Bitcoin returns**:
 ---
 
 # 📂 Repository Structure
+
+
+
+
+---
+
+# 📚 References
+
+1. Tay, F. E. H., & Cao, L. (2001). Application of Support Vector Machines in Financial Time Series Forecasting. Omega.
+
+2. Singh, A., Singh, P., & Mishra, K. N. (2020). A Review on Support Vector Regression and its Applications.
+
+---
+
+# 🚀 Future Work
+
+- Multivariate financial forecasting
+- High-frequency market data
+- Hybrid SVR-deep learning models
+- Portfolio optimization applications
+
+---
+
+# 🙏 Acknowledgements
+
+I would like to express my sincere gratitude to:
+
+- **African Institute for Mathematical Sciences (AIMS Senegal)**
+- **Mastercard Foundation Scholars Program**
+
+for their academic and financial support.
+
+Special thanks to my supervisors and mentors for their guidance throughout this research journey.
+
+---
+
+<div align="center">
+
+⭐ If you find this repository useful, please consider starring it!
+
+</div>
