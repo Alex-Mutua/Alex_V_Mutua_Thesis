@@ -11,7 +11,7 @@
 
 ---
 
-**Khondwani Banda**
+**Alex V Mutua**
 
 📧 mutua.v.alex@aims-senegal.org
 
