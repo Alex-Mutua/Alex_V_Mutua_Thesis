@@ -144,7 +144,22 @@ Example forecast comparison for **Bitcoin returns**:
 # 📂 Repository Structure
 
 
+📈 Results and Visualizations
 
+The following figures summarize the forecasting performance of the proposed models across different financial assets. The evaluation follows a rolling-window forecasting framework, and results are reported using standard error metrics such as RMSE.
+
+Bitcoin Forecasting Performance
+Best Model RMSE Comparison
+<p align="center"> <img src="Figures/Bitcoin RMSE (Best Model).png" width="700"> </p>
+
+This figure presents the RMSE comparison of the best-performing models for Bitcoin forecasting. The results show that tuned SVR models with RBF kernels achieve strong predictive performance relative to competing approaches.
+
+SVR with RBF Kernel (Grid Search Optimization)
+<p align="center"> <img src="Figures/Bitcoin SVR - RBF_Grid Kernel.png" width="700"> </p>
+
+This visualization illustrates the forecasted versus actual log returns for Bitcoin using an SVR model with an RBF kernel, where hyperparameters were optimized through grid search.
+
+The model captures several nonlinear dynamics of the cryptocurrency market while maintaining stable predictive behavior across the rolling evaluation window.
 
 ---
 
