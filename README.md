@@ -192,16 +192,22 @@ The following models were evaluated:
 - XGBoost
 
 ---
+### Rolling Window Evaluation
 
-## Evaluation Framework
+All models were evaluated using a **rolling-window forecasting procedure**, which mimics real-world financial prediction where models are repeatedly retrained as new data arrives.
 
-A **rolling-window forecasting approach** is used:
+<p align="center">
+<img src="Figures/Rolling_Window.png" width="700">
+</p>
 
-```
-Train → Predict next day → Shift window → Retrain
-```
+**Procedure**
 
-This approach simulates realistic financial forecasting where models are updated sequentially as new information becomes available.
+1. Train the model on a fixed historical window.
+2. Predict the next observation (one-step-ahead forecast).
+3. Move the window forward by one time step.
+4. Retrain the model and repeat the process.
+
+This evaluation framework ensures that model performance is measured on **true out-of-sample data**, avoiding look-ahead bias and providing a realistic assessment of forecasting ability.
 
 ---
 
