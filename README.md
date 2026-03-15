@@ -13,10 +13,8 @@
 
 **Alex V Mutua**
 
-📧 mutua.v.alex@aims-senegal.org
-
-African Institute for Mathematical Sciences (AIMS) — Senegal
-
+📧 mutua.v.alex@aims-senegal.org  
+African Institute for Mathematical Sciences (AIMS) — Senegal  
 🎓 Master of Science in Data Science
 
 </div>
@@ -31,19 +29,34 @@ This thesis investigates the effectiveness of **Support Vector Regression (SVR)*
 
 Our results demonstrate that **tuned RBF-SVR achieves strong forecasting performance and robust directional accuracy**, offering a computationally efficient alternative to deep learning methods for moderate-sized financial datasets.
 
-> Keywords: Support Vector Regression · Financial Forecasting · Machine Learning · Time Series · Rolling Window Evaluation
+> **Keywords:** Support Vector Regression · Financial Forecasting · Machine Learning · Time Series · Rolling Window Evaluation
 
 ---
 
 # 📑 Table of Contents
 
-- Introduction
-- Background and Literature Review
-- Methodology
-- Experimental Design
-- Results
-- Discussion
-- Conclusion and Future Work
+- [Introduction](#introduction)
+- [Research Objective](#research-objective)
+- [Data Sources](#-data-sources)
+- [Methodology](#-methodology)
+- [Quantitative Results](#-quantitative-results)
+- [Results and Visualizations](#-results-and-visualizations)
+- [Support Vector Regression](#-support-vector-regression-svr)
+- [Repository Structure](#-repository-structure)
+- [Future Work](#-future-work)
+- [References](#-references)
+- [License](#-license)
+- [Acknowledgements](#-acknowledgements)
+
+---
+
+# Introduction
+
+Forecasting financial markets is a complex task due to **volatility, nonlinear dynamics, and structural changes** in market behavior. Traditional statistical models such as ARIMA rely on linear assumptions and may struggle to capture nonlinear dependencies present in financial data.
+
+Machine learning models provide flexible frameworks capable of modeling complex relationships. Among these methods, **Support Vector Regression (SVR)** offers a powerful approach that balances predictive performance with computational efficiency.
+
+This research evaluates SVR within a unified experimental framework and compares it against classical and deep learning models across different financial markets.
 
 ---
 
@@ -60,33 +73,55 @@ Key questions addressed include:
 
 ---
 
-# 📊 Dataset
+# 📊 Data Sources
 
-The study evaluates forecasting performance across three representative financial markets:
+Financial market data used in this study are retrieved dynamically from **yfinance**, which provides programmatic access to historical data from Yahoo Finance.
 
-| Asset | Market Type | Ticker |
-|------|-------------|--------|
-| Bitcoin | Cryptocurrency | BTC-USD |
-| S&P 500 | Equity Index | ^GSPC |
-| Gold ETF | Commodity | GLD |
+The analysis covers three representative financial markets:
 
-These datasets capture **diverse statistical regimes**, allowing assessment of model robustness across heterogeneous financial environments.
+| Asset | Market Type | Ticker | Period |
+|------|-------------|--------|--------|
+| Bitcoin | Cryptocurrency | BTC-USD | 2016–2024 |
+| S&P 500 | Equity Index | ^GSPC | 2010–2024 |
+| Gold ETF | Commodity | GLD | 2010–2024 |
+
+These assets were selected to represent **heterogeneous financial environments**, allowing the evaluation of forecasting models across different market regimes, liquidity levels, and volatility structures.
+
+Because the datasets are retrieved programmatically at runtime, **no raw datasets are stored in this repository**, ensuring that experiments remain lightweight and fully reproducible.
+
+Example data retrieval:
+
+```python
+import yfinance as yf
+import numpy as np
+
+ASSET = "BTC-USD"
+
+btc = yf.download(ASSET, start="2016-01-01", end="2024-12-31")[["Close"]].dropna()
+btc["LogReturn"] = np.log(btc["Close"] / btc["Close"].shift(1))
+```
 
 ---
 
 # ⚙️ Methodology
 
-The forecasting framework follows four key steps:
+The forecasting framework follows four main stages.
 
-1️⃣ **Feature Engineering**
+## Feature Engineering
 
-- Log returns  
-- Lagged returns  
-- Rolling volatility  
-- Momentum indicators  
+Features used in the models include:
+
+- Log returns
+- Lagged returns
+- Rolling volatility
+- Momentum indicators
 - Wavelet decomposition
 
-2️⃣ **Forecasting Models**
+---
+
+## Forecasting Models
+
+The following models were evaluated:
 
 - Support Vector Regression (SVR)
 - ARIMA
@@ -95,88 +130,221 @@ The forecasting framework follows four key steps:
 - MLP
 - XGBoost
 
-3️⃣ **Evaluation Framework**
+---
 
-A **rolling-window evaluation** is used to simulate real-world forecasting:
+## Evaluation Framework
 
+A **rolling-window forecasting approach** is used:
+
+```
 Train → Predict next day → Shift window → Retrain
+```
 
-4️⃣ **Performance Metrics**
-
-| Metric | Purpose |
-|------|---------|
-MAE | Mean absolute forecasting error |
-RMSE | Penalizes large errors |
-SMAPE | Scale-independent comparison |
-Directional Accuracy | Measures correct market direction |
+This approach simulates realistic financial forecasting where models are updated sequentially as new information becomes available.
 
 ---
 
-# 📈 Key Results
+## Performance Metrics
 
-| Model | MAE | RMSE | Directional Accuracy |
+| Metric | Description |
+|------|-------------|
+| MAE | Mean Absolute Error |
+| RMSE | Root Mean Squared Error |
+| DA | Directional Accuracy |
+
+---
+
+# 📊 Quantitative Results
+
+The forecasting models were evaluated using the three key metrics described above.
+
+---
+
+## ₿ Bitcoin (BTC-USD) Results
+
+| Model | MAE | RMSE | DA |
 |------|------|------|------|
-SVR (RBF tuned) | **Best SVR performance** | Competitive | High |
-ARIMA | Moderate | Moderate | Lower |
-Naive | Weak | Weak | Random baseline |
-LSTM | Strong accuracy | High cost | High |
-XGBoost | Competitive | Moderate | High |
+| Naive | 0.0273 | 0.0366 | 0.4641 |
+| ARIMA | 0.0177 | 0.0250 | 0.5099 |
+| RBF-SVR (Grid) | 0.0040 | 0.0067 | 0.9267 |
+| XGBoost | 0.0041 | 0.0057 | 0.9374 |
+| MLP | **0.0012** | **0.0016** | **0.9771** |
 
-Key observations:
+### Interpretation
 
-- Kernel choice significantly affects SVR performance
-- Hyperparameter tuning is critical
-- SVR performs consistently across heterogeneous assets
-- SVR offers strong performance with lower computational cost than deep learning
+- SVR significantly improves over classical benchmarks such as Naive and ARIMA.
+- Machine learning models capture nonlinear market dynamics more effectively.
+- Deep learning models achieve the lowest raw prediction error.
 
----
-
-# 📊 Example Forecast
-
-Example forecast comparison for **Bitcoin returns**:
+Visualization:
 
 <p align="center">
-<img src="figures/btc_forecast.png" width="700">
+<img src="Figures/Bitcoin_RMSE_Best_Model.png" width="750">
 </p>
+
+---
+
+## 📈 S&P 500 Results
+
+| Model | MAE | RMSE | DA |
+|------|------|------|------|
+| Naive | 0.0084 | 0.0108 | 0.4956 |
+| ARIMA | 0.0059 | 0.0078 | 0.5689 |
+| RBF-SVR (Grid) | 0.0047 | 0.0067 | 0.7367 |
+| XGBoost | 0.0018 | 0.0024 | 0.9267 |
+| LSTM | **0.0006** | **0.0007** | **0.9622** |
+
+Visualization:
+
+<p align="center">
+<img src="Figures/S&P_500_RBF_Grid_Kernel.png" width="750">
+</p>
+
+---
+
+## 🪙 Gold (GLD) Results
+
+| Model | MAE | RMSE | DA |
+|------|------|------|------|
+| ARIMA | 0.0070 | 0.0092 | 0.5279 |
+| LSTM | 0.0067 | 0.0087 | 0.6423 |
+| SVR Wavelet | 0.0036 | 0.0046 | 0.8306 |
+| RBF-SVR (Grid) | 0.0038 | 0.0053 | 0.8272 |
+| XGBoost | **0.0022** | **0.0030** | **0.9229** |
+
+Visualizations:
+
+<p align="center">
+<img src="Figures/Gold_SVR_Rbf_Grid_Kernel.png" width="750">
+</p>
+
+<p align="center">
+<img src="Figures/Gold_SVR_Wavelet_Kernel.png" width="750">
+</p>
+
+---
+
+# 📈 Results and Visualizations
+
+### Bitcoin SVR Forecast
+
+<p align="center">
+<img src="Figures/Bitcoin_SVR_RBF_Grid_Kernel.png" width="750">
+</p>
+
+---
+
+# 📐 Support Vector Regression (SVR)
+
+Support Vector Regression is derived from Support Vector Machine theory and adapts the concept of maximum margin learning for regression tasks.
+
+Instead of minimizing squared error, SVR fits a function that **remains as flat as possible while allowing small deviations controlled by an ε-insensitive loss function**.
+
+---
+
+## SVR Geometry: ε-Insensitive Tube
+
+<p align="center">
+<img src="images/SVR_GEometry_Tube.png" width="500">
+</p>
+
+### Interpretation
+
+- The regression function is constrained to lie within an **ε-insensitive tube**.
+- Errors inside the tube are ignored.
+- Points outside the tube introduce **slack variables**.
+- The regularization parameter **C** balances model flatness and tolerance to prediction errors.
+
+---
+
+## Mathematical Formulation
+
+SVR solves the optimization problem:
+
+```
+min (1/2)||w||² + C Σ (ξ_i + ξ_i*)
+```
+
+Subject to:
+
+```
+y_i − (w·x_i + b) ≤ ε + ξ_i
+(w·x_i + b) − y_i ≤ ε + ξ_i*
+ξ_i , ξ_i* ≥ 0
+```
+
+Where:
+
+| Symbol | Meaning |
+|------|---------|
+| w | weight vector |
+| b | bias term |
+| C | regularization parameter |
+| ε | width of the insensitive tube |
+| ξᵢ | slack variables |
+
+---
+
+## Why SVR for Financial Forecasting?
+
+SVR is particularly suitable for financial time series because:
+
+- It handles **nonlinear relationships through kernel functions**
+- It performs well on **small to medium-sized datasets**
+- The **ε-insensitive loss improves robustness to market noise**
+
+In this thesis, the **Radial Basis Function (RBF) kernel** is primarily used.
 
 ---
 
 # 📂 Repository Structure
 
-
-📈 Results and Visualizations
-
-The following figures summarize the forecasting performance of the proposed models across different financial assets. The evaluation follows a rolling-window forecasting framework, and results are reported using standard error metrics such as RMSE.
-
-Bitcoin Forecasting Performance
-Best Model RMSE Comparison
-<p align="center"> <img src="Figures/Bitcoin RMSE (Best Model).png" width="700"> </p>
-
-This figure presents the RMSE comparison of the best-performing models for Bitcoin forecasting. The results show that tuned SVR models with RBF kernels achieve strong predictive performance relative to competing approaches.
-
-SVR with RBF Kernel (Grid Search Optimization)
-<p align="center"> <img src="Figures/Bitcoin SVR - RBF_Grid Kernel.png" width="700"> </p>
-
-This visualization illustrates the forecasted versus actual log returns for Bitcoin using an SVR model with an RBF kernel, where hyperparameters were optimized through grid search.
-
-The model captures several nonlinear dynamics of the cryptocurrency market while maintaining stable predictive behavior across the rolling evaluation window.
-
----
-
-# 📚 References
-
-1. Tay, F. E. H., & Cao, L. (2001). Application of Support Vector Machines in Financial Time Series Forecasting. Omega.
-
-2. Singh, A., Singh, P., & Mishra, K. N. (2020). A Review on Support Vector Regression and its Applications.
+```
+SVR-Financial-Forecasting
+│
+├── Figures
+│   ├── Bitcoin_RMSE_Best_Model.png
+│   ├── Bitcoin_SVR_RBF_Grid_Kernel.png
+│   ├── Gold_SVR_Rbf_Grid_Kernel.png
+│   ├── Gold_SVR_Wavelet_Kernel.png
+│   ├── Rolling_Window.png
+│   ├── S&P_500_RBF_Grid_Kernel.png
+│   └── SVR_GEometry_Tube.png
+│
+├── notebooks
+│
+├── src
+│
+├── README.md
+└── LICENSE
+```
 
 ---
 
 # 🚀 Future Work
 
+Potential extensions of this research include:
+
 - Multivariate financial forecasting
-- High-frequency market data
-- Hybrid SVR-deep learning models
+- High-frequency trading data
+- Hybrid SVR–deep learning architectures
 - Portfolio optimization applications
+
+---
+
+# 📚 References
+
+Tay, F. E. H., & Cao, L. (2001).  
+Application of Support Vector Machines in Financial Time Series Forecasting.
+
+Singh, A., Singh, P., & Mishra, K. N. (2020).  
+A Review on Support Vector Regression and its Applications.
+
+---
+
+# 📜 License
+
+This project is released under the **MIT License**.
 
 ---
 
