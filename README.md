@@ -72,7 +72,68 @@ Key questions addressed include:
 4. What trade-offs exist between SVR and deep learning models?
 
 ---
+# 📐 Support Vector Regression (SVR)
 
+Support Vector Regression is derived from Support Vector Machine theory and adapts the concept of maximum margin learning for regression tasks.
+
+Instead of minimizing squared error, SVR fits a function that **remains as flat as possible while allowing small deviations controlled by an ε-insensitive loss function**.
+
+---
+
+## SVR Geometry: ε-Insensitive Tube
+
+<p align="center">
+<img src="Figures/SVR_GEometry_Tube.png" width="500">
+</p>
+
+### Interpretation
+
+- The regression function is constrained to lie within an **ε-insensitive tube**.
+- Errors inside the tube are ignored.
+- Points outside the tube introduce **slack variables**.
+- The regularization parameter **C** balances model flatness and tolerance to prediction errors.
+
+---
+
+## Mathematical Formulation
+
+SVR solves the optimization problem:
+
+```
+min (1/2)||w||² + C Σ (ξ_i + ξ_i*)
+```
+
+Subject to:
+
+```
+y_i − (w·x_i + b) ≤ ε + ξ_i
+(w·x_i + b) − y_i ≤ ε + ξ_i*
+ξ_i , ξ_i* ≥ 0
+```
+
+Where:
+
+| Symbol | Meaning |
+|------|---------|
+| w | weight vector |
+| b | bias term |
+| C | regularization parameter |
+| ε | width of the insensitive tube |
+| ξᵢ | slack variables |
+
+---
+
+## Why SVR for Financial Forecasting?
+
+SVR is particularly suitable for financial time series because:
+
+- It handles **nonlinear relationships through kernel functions**
+- It performs well on **small to medium-sized datasets**
+- The **ε-insensitive loss improves robustness to market noise**
+
+In this thesis, the **Radial Basis Function (RBF) kernel** is primarily used.
+
+---
 # 📊 Data Sources
 
 Financial market data used in this study are retrieved dynamically from **yfinance**, which provides programmatic access to historical data from Yahoo Finance.
@@ -234,68 +295,6 @@ Visualizations:
 
 ---
 
-# 📐 Support Vector Regression (SVR)
-
-Support Vector Regression is derived from Support Vector Machine theory and adapts the concept of maximum margin learning for regression tasks.
-
-Instead of minimizing squared error, SVR fits a function that **remains as flat as possible while allowing small deviations controlled by an ε-insensitive loss function**.
-
----
-
-## SVR Geometry: ε-Insensitive Tube
-
-<p align="center">
-<img src="images/SVR_GEometry_Tube.png" width="500">
-</p>
-
-### Interpretation
-
-- The regression function is constrained to lie within an **ε-insensitive tube**.
-- Errors inside the tube are ignored.
-- Points outside the tube introduce **slack variables**.
-- The regularization parameter **C** balances model flatness and tolerance to prediction errors.
-
----
-
-## Mathematical Formulation
-
-SVR solves the optimization problem:
-
-```
-min (1/2)||w||² + C Σ (ξ_i + ξ_i*)
-```
-
-Subject to:
-
-```
-y_i − (w·x_i + b) ≤ ε + ξ_i
-(w·x_i + b) − y_i ≤ ε + ξ_i*
-ξ_i , ξ_i* ≥ 0
-```
-
-Where:
-
-| Symbol | Meaning |
-|------|---------|
-| w | weight vector |
-| b | bias term |
-| C | regularization parameter |
-| ε | width of the insensitive tube |
-| ξᵢ | slack variables |
-
----
-
-## Why SVR for Financial Forecasting?
-
-SVR is particularly suitable for financial time series because:
-
-- It handles **nonlinear relationships through kernel functions**
-- It performs well on **small to medium-sized datasets**
-- The **ε-insensitive loss improves robustness to market noise**
-
-In this thesis, the **Radial Basis Function (RBF) kernel** is primarily used.
-
----
 
 # 📂 Repository Structure
 
@@ -310,10 +309,6 @@ SVR-Financial-Forecasting
 │   ├── Rolling_Window.png
 │   ├── S&P_500_RBF_Grid_Kernel.png
 │   └── SVR_GEometry_Tube.png
-│
-├── notebooks
-│
-├── src
 │
 ├── README.md
 └── LICENSE
