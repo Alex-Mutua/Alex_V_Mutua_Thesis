@@ -279,28 +279,86 @@ Visualization:
 | RBF-SVR (Grid) | 0.0038 | 0.0053 | 0.8272 |
 | XGBoost | **0.0022** | **0.0030** | **0.9229** |
 
-Visualizations:
-
-<p align="center">
-<img src="Figures/Gold_SVR_Rbf_Grid_Kernel.png" width="750">
-</p>
-
-<p align="center">
-<img src="Figures/Gold_SVR_Wavelet_Kernel.png" width="750">
-</p>
-
 ---
 
 # 📈 Results and Visualizations
 
-### Bitcoin SVR Forecast
+The following figures summarize the forecasting performance of the proposed models across different financial assets.  
+All experiments were evaluated using a **rolling-window forecasting framework**, ensuring that predictions simulate real-world financial forecasting conditions.
+
+Model performance is primarily assessed using **Root Mean Squared Error (RMSE)** together with visual comparisons between predicted and actual log returns.
+
+---
+
+## ₿ Bitcoin Forecasting Results
+
+### Best Model RMSE Comparison
+
+<p align="center">
+<img src="Figures/Bitcoin_RMSE_Best_Model.png" width="750">
+</p>
+
+This figure compares the RMSE values of the best-performing models for **Bitcoin return forecasting**.
+
+The results show that **machine learning approaches significantly outperform classical statistical models** such as Naive and ARIMA.  
+Among the SVR variants, the **RBF kernel with optimized hyperparameters** provides strong predictive accuracy and competitive performance relative to more complex models.
+
+---
+
+### SVR with RBF Kernel (Grid Search Optimization)
 
 <p align="center">
 <img src="Figures/Bitcoin_SVR_RBF_Grid_Kernel.png" width="750">
 </p>
 
+This visualization illustrates the **forecasted versus actual log returns for Bitcoin** using a Support Vector Regression model with an **RBF kernel**.
+
+Hyperparameters were optimized using **grid search**, allowing the model to effectively capture nonlinear dependencies in cryptocurrency price movements.  
+The rolling-window evaluation demonstrates that the SVR model maintains **stable predictive performance across different market regimes**.
+
 ---
 
+## 🪙 Gold Forecasting Results
+
+### SVR with RBF Kernel
+
+<p align="center">
+<img src="Figures/Gold_SVR_Rbf_Grid_Kernel.png" width="750">
+</p>
+
+For the **gold market**, the SVR model with an optimized **RBF kernel** demonstrates strong forecasting capability.
+
+The model successfully captures nonlinear relationships present in commodity price movements and produces predictions that closely track the actual return dynamics observed in the rolling evaluation period.
+
+---
+
+### SVR with Wavelet Kernel
+
+<p align="center">
+<img src="Figures/Gold_SVR_Wavelet_Kernel.png" width="750">
+</p>
+
+This experiment incorporates **wavelet-based feature decomposition** prior to applying Support Vector Regression.
+
+Wavelet transformations allow the model to capture **multi-scale temporal structures** present in financial time series, enabling improved representation of both short-term fluctuations and long-term market trends.  
+As a result, the **Wavelet-SVR approach demonstrates enhanced forecasting performance** for gold price dynamics.
+
+---
+
+## 📊 S&P 500 Forecasting Results
+
+### SVR with RBF Kernel (Grid Search)
+
+<p align="center">
+<img src="Figures/S&P_500_RBF_Grid_Kernel.png" width="750">
+</p>
+
+For the **equity market represented by the S&P 500 index**, the optimized **RBF-kernel SVR model** provides stable predictive performance.
+
+The results demonstrate that Support Vector Regression can effectively capture **nonlinear relationships and volatility structures** commonly observed in equity market returns.  
+Compared with classical econometric approaches, SVR shows **clear improvements in both prediction accuracy and directional forecasting performance**.
+
+---
 
 # 📂 Repository Structure
 
