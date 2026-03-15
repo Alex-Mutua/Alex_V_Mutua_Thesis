@@ -414,15 +414,13 @@ Finally, I extend my sincere gratitude to the lecturers, tutors, and staff membe
 
 ---
 
----
-
 ## ✏️ Declaration
 
 This work was carried out at **AIMS Senegal** in partial fulfilment of the requirements for a **Master of Science Degree**.
 
 Except where due acknowledgement is made, I hereby declare that this work has **never been presented wholly or in part for the award of a degree** at AIMS Senegal or any other university.
 
-**Student:** Alex Vundi Mutua  
+**Author:** Alex Vundi Mutua  
 **Supervisor:** Dr. Ya'e Ulrich Gaba  
 
 <br>
