@@ -398,43 +398,6 @@ This project is released under the **MIT License**.
 ---
 
 
-## 🙏 Acknowledgements
-
-I am deeply grateful to **Almighty God** for His mercy, grace, love, and protection, which sustained me throughout this research journey.
-
-I would like to express my sincere appreciation to my supervisor, **Dr. Ya'e Ulrich Gaba**, for his availability, insightful advice, patience, and continuous support. His constructive feedback and academic guidance were invaluable in shaping this dissertation.
-
-I am particularly grateful to my tutor, **Mamadou Pathé Ly**, for his consistent guidance, encouragement, and dedication, which greatly supported me throughout the writing process.
-
-My heartfelt appreciation goes to the **African Institute for Mathematical Sciences (AIMS Senegal)** for providing a stimulating academic environment that fostered both intellectual growth and personal development.
-
-My sincere thanks go to my parents, **Abednego M. Musili** and **Christine M. Mutua**, and to my brothers, sister **Monicah Mutua**, and my friends for their unwavering support, prayers, encouragement, and belief in me. Their confidence and motivation have been a constant source of strength.
-
-Finally, I extend my sincere gratitude to the lecturers, tutors, and staff members of the institution for their continued support and for providing an enriching academic environment throughout this journey.
-
----
-
-## ✏️ Declaration
-
-This work was carried out at **AIMS Senegal** in partial fulfilment of the requirements for a **Master of Science Degree**.
-
-Except where due acknowledgement is made, I hereby declare that this work has **never been presented wholly or in part for the award of a degree** at AIMS Senegal or any other university.
-
-**Author:** Alex Vundi Mutua  
-**Supervisor:** Dr. Ya'e Ulrich Gaba  
-
-<br>
-
-<p align="center">
-
-I, the undersigned, hereby declare that the work contained in this project is my original work, and that any work done by others or by myself previously has been properly acknowledged and referenced.
-
-**Alex Vundi Mutua — February 15, 2026**
-
-</p>
-
----
-
 <p align="center">
 
 Made with ❤️ at **AIMS Senegal**
